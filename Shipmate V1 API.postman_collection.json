@@ -1,0 +1,376 @@
+{
+	"info": {
+		"_postman_id": "8aad02fe-89a4-4df7-a7c0-a0b6835ff193",
+		"name": "Shipmate V1 API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Authentication",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"test@shipmate.co.uk\",\n    \"password\": \"myShipmatePassword\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}/tokens",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"tokens"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": " Services",
+			"item": [
+				{
+					"name": "Get Delivery Services",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-SHIPMATE-TOKEN",
+								"value": "{{ShipmateToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API}}/services",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"services"
+							],
+							"query": [
+								{
+									"key": "weight",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "length",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "depth",
+									"value": "60",
+									"disabled": true
+								},
+								{
+									"key": "width",
+									"value": "30",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Parcel Attributes",
+			"item": [
+				{
+					"name": "Get Parcel Attributes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-SHIPMATE-TOKEN",
+								"value": "{{ShipmateToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API}}/attributes",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"attributes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Packaging Options",
+			"item": [
+				{
+					"name": "Get Packaging Options",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-SHIPMATE-TOKEN",
+								"value": "{{ShipmateToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API}}/packaging-options",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"packaging-options"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Consignments",
+			"item": [
+				{
+					"name": "Create a Consignment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-SHIPMATE-TOKEN",
+								"value": "{{ShipmateToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"consignment_reference\": \"80000001\",\n    \"service_key\": \"DPDNEXT\",\n    \"to_address\": {\n        \"name\": \"Bruce Irvine\",\n        \"line_1\": \"35 Ford Street\",\n        \"city\": \"Derby\",\n        \"postcode\": \"DE1 1EE\",\n        \"country\": \"GB\"\n    },\n    \"parcels\": [\n        {\n            \"reference\": \"80000001-1\",\n            \"weight\": 3000,\n            \"width\": 20,\n            \"length\": 10,\n            \"depth\": 15,\n            \"attributes\": {\n                \"CUSTOM_1\": \"Books\",\n                \"CUSTOM_2\": 0\n            }\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API}}/consignments",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"consignments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel a Consignment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-SHIPMATE-TOKEN",
+								"value": "{{ShipmateToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "file",
+							"file": {}
+						},
+						"url": {
+							"raw": "{{API}}/consignments/:reference",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"consignments",
+								":reference"
+							],
+							"variable": [
+								{
+									"key": "reference",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": " Tracking Events",
+			"item": [
+				{
+					"name": "Get Events by Consignment",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-SHIPMATE-TOKEN",
+								"value": "{{ShipmateToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "file",
+							"file": {}
+						},
+						"url": {
+							"raw": "{{API}}/consignments/:reference/events",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"consignments",
+								":reference",
+								"events"
+							],
+							"variable": [
+								{
+									"key": "reference",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Events by Parcel",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-SHIPMATE-TOKEN",
+								"value": "{{ShipmateToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "file",
+							"file": {}
+						},
+						"url": {
+							"raw": "{{API}}/parcels/:reference/events",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"parcels",
+								":reference",
+								"events"
+							],
+							"variable": [
+								{
+									"key": "reference",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Label",
+			"item": [
+				{
+					"name": "Get Events by Parcel",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-SHIPMATE-TOKEN",
+								"value": "{{ShipmateToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "file",
+							"file": {}
+						},
+						"url": {
+							"raw": "{{API}}/parcels/:reference/label",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"parcels",
+								":reference",
+								"label"
+							],
+							"variable": [
+								{
+									"key": "reference",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Print Label",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-SHIPMATE-TOKEN",
+								"value": "{{ShipmateToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "file",
+							"file": {}
+						},
+						"url": {
+							"raw": "{{API}}/parcels/:reference/print",
+							"host": [
+								"{{API}}"
+							],
+							"path": [
+								"parcels",
+								":reference",
+								"print"
+							],
+							"variable": [
+								{
+									"key": "reference",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
