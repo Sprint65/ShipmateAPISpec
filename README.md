@@ -1,5 +1,7 @@
 # ShipmateAPISpec
 
+[![Validate JSON](https://github.com/Sprint65/ShipmateAPISpec/actions/workflows/validate.yml/badge.svg)](https://github.com/Sprint65/ShipmateAPISpec/actions/workflows/validate.yml)
+
 ## Import
 
 1. Open **Postman**
